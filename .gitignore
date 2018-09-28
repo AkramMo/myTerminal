@@ -3,3 +3,4 @@ unit_test
 
 your_answer*
 *.swp
+/Debug/

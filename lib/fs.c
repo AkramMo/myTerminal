@@ -12,9 +12,19 @@
  *
  *********************************************************************/
 #include "fs.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 int does_exefile_exists(const char* path)
 {
-  // TODO: Fill it!
-  return -1;
+
+	if (path != NULL) {
+		struct stat statStruct;
+
+		if(stat(path, &statStruct) == 0 && statStruct.st_mode == S_IXUSR){
+			return 1;
+		}
+	}
+	return 0;
 }

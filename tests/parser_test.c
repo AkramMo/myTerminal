@@ -22,18 +22,18 @@ int main()
 {
   int argc = -1;
   char** argv = NULL;
-
-  parse_command("pwd", &argc, &argv);
-  assert(argc == 1);
-  assert(strncmp(argv[0], "pwd", strlen("pwd")) == 0);
-  assert(argv[1] == NULL);
-  FREE_2D_ARRAY(argc, argv);
-  
-  parse_command("pwd ", &argc, &argv);
-  assert(argc == 1);
-  assert(strncmp(argv[0], "pwd", strlen("pwd")) == 0);
-  assert(argv[1] == NULL);
-  FREE_2D_ARRAY(argc, argv);
+//
+//  parse_command("pwd", &argc, &argv);
+//  assert(argc == 1);
+//  assert(strncmp(argv[0], "pwd", strlen("pwd")) == 0);
+//  assert(argv[1] == NULL);
+//  FREE_2D_ARRAY(argc, argv);
+//
+//  parse_command("pwd ", &argc, &argv);
+//  assert(argc == 1);
+//  assert(strncmp(argv[0], "pwd", strlen("pwd")) == 0);
+//  assert(argv[1] == NULL);
+//  FREE_2D_ARRAY(argc, argv);
 
   parse_command("     cd tests", &argc, &argv);
   assert(argc == 2);
