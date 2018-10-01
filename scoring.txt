@@ -1,0 +1,4 @@
+1c1
+< /home/akmo/Eclipse-workspace/myterminal
+---
+> /tmp
