@@ -62,19 +62,20 @@ struct command_entry* fetch_command(const char* command_name)
 
 int do_pwd(int argc, char** argv)
 {
-	char *cp = getcwd(argv[0], 1020 * sizeof(char *));
+	char *cp = getcwd(NULL, 0);
 
 	// TODO: Fill it
+
 	if ( cp != NULL) {
 
-		printf("%s\n", argv[0]);
+		printf("%s\n", cp);
+
+		return 0;
 	} else {
 
 		perror("getcwd() error");
 		return -1;
 	}
-	return 0;
-
 }
 
 void err_pwd(int err_code)
@@ -84,26 +85,29 @@ void err_pwd(int err_code)
 
 int do_cd(int argc, char** argv)
 {
+
 	int value = chdir(argv[1]);
+
 
 	if( value == 0){
 		return 0;
-	}else if(access(argv[0], F_OK) == 0){
+	}else if(access(argv[1], F_OK) == 0){
 		return 2;
-	}
+	}else{
 
-	return 0;
+		return 1;
+	}
 }
 
 void err_cd(int err_code)
 {
 	if(err_code == 1){
 
-		fprintf( stderr, " cd: no such file or directory: <directory name>" );
+		fprintf( stderr, "\ncd: no such file or directory\n" );
 
 	}else if(err_code == 2){
 
-		fprintf( stderr, "cd: not a directory: <directory name>");
+		fprintf( stderr, "cd: not a directory");
 
 	}
 }

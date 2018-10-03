@@ -16,6 +16,7 @@
 #include "stdlib.h"
 #include <stdbool.h>
 
+#define BUFSIZE 1024
 
 void parse_command(const char* input,
 		int* argc, char*** argv)
@@ -28,27 +29,28 @@ void parse_command(const char* input,
 	*argc = 0;
 
 
-	argv[0] = malloc(50 * sizeof(char ** ));
+	argv[0] = malloc(BUFSIZE * sizeof(char ** ));
+
 	while(*input != '\0'){
 
-		while(*input != '/' && *input != '\0' ){
+		while(*input != '\0' ){
 
-			if(*input == '"'){
-				quote = !quote;
-			}
-
-			if(*input != ' ' && *input != '"'){
-				command[counter] = *input;
-				*input++;
-				counter++;
-			}else if( *input == ' ' && quote){
-				command[counter] = *input;
-				*input++;
-				counter++;
-			}else{
-				break;
-			}
+		if(*input == '"'){
+			quote = !quote;
 		}
+
+		if(*input != ' ' && *input != '"' && *input != '\n'){
+			command[counter] = *input;
+			*input++;
+			counter++;
+		}else if( *input == ' ' && quote){
+			command[counter] = *input;
+			*input++;
+			counter++;
+		}else{
+			break;
+		}
+	}
 
 
 	counter = 0;
