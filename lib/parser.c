@@ -35,35 +35,36 @@ void parse_command(const char* input,
 
 		while(*input != '\0' ){
 
-		if(*input == '"'){
-			quote = !quote;
+			if(*input == '"'){
+				quote = !quote;
+			}
+
+			if(*input != ' ' && *input != '"' && *input != '\n'){
+				command[counter] = *input;
+				*input++;
+				counter++;
+			}else if( *input == ' ' && quote){
+				command[counter] = *input;
+				*input++;
+				counter++;
+			}else{
+				break;
+			}
 		}
 
-		if(*input != ' ' && *input != '"' && *input != '\n'){
-			command[counter] = *input;
-			*input++;
-			counter++;
-		}else if( *input == ' ' && quote){
-			command[counter] = *input;
-			*input++;
-			counter++;
+
+		counter = 0;
+		if( command[0] != 0){
+			argv[0][i] = calloc(strlen(command), sizeof(char *));
+			strncpy(argv[0][i], command, strlen(command) + 1);
+			memset(command,0,50);
+			*argc = *argc + 1;
+			i++;
 		}else{
-			break;
+			input++;
 		}
 	}
 
-
-	counter = 0;
-	if( command[0] != 0){
-		argv[0][i] = calloc(strlen(command) + 1, sizeof(char *));
-		strncpy(argv[0][i], command, strlen(command) + 1);
-		memset(command,0,50);
-		*argc = *argc + 1;
-		i++;
-	}else{
-		input++;
-	}
-}
 }
 
 

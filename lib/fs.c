@@ -21,13 +21,13 @@
 int does_exefile_exists(const char* path)
 {
 
-	char* tmpPath = (char*)malloc(1024 * sizeof(char));
+	char* tmpPath = malloc(1024 * sizeof(char));
 
 	if (path != NULL) {
 		struct stat *buf = malloc(sizeof(struct stat));
 		stat(path, buf);
 
-		if(  ( buf->st_mode & S_IXUSR) == S_IXUSR){
+		if(( buf->st_mode & S_IXUSR) == S_IXUSR){
 			free(buf);
 			free(tmpPath);
 			return 1;
@@ -59,6 +59,8 @@ int does_exefile_exists(const char* path)
 		free(buf);
 		free(tmpPath);
 	}
+
+	free(tmpPath);
 
 	return 0;
 }

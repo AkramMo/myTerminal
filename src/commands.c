@@ -69,10 +69,10 @@ int do_pwd(int argc, char** argv)
 	if ( cp != NULL) {
 
 		printf("%s\n", cp);
-
+		free(cp);
 		return 0;
 	} else {
-
+		free(cp);
 		perror("getcwd() error");
 		return -1;
 	}

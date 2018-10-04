@@ -49,11 +49,7 @@ int main()
 			}
 			free(comm_entry);
 		} else if (does_exefile_exists(argv[0])) {
-			//
-			//			/tmp/ajou
-			//			a
-			//			b
-			//			c
+
 
 			pid_t pid;
 			int state;
