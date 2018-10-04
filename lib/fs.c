@@ -15,16 +15,50 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
 
 int does_exefile_exists(const char* path)
 {
 
-	if (path != NULL) {
-		struct stat statStruct;
+	char* tmpPath = (char*)malloc(1024 * sizeof(char));
 
-		if(stat(path, &statStruct) == 0 && statStruct.st_mode == S_IXUSR){
+	if (path != NULL) {
+		struct stat *buf = malloc(sizeof(struct stat));
+		stat(path, buf);
+
+		if(  ( buf->st_mode & S_IXUSR) == S_IXUSR){
+			free(buf);
+			free(tmpPath);
 			return 1;
+		}else{
+
+			strcpy(tmpPath, "/bin/");
+			strcat(tmpPath , path);
+			stat(tmpPath, buf);
+
+			if((buf->st_mode & S_IXUSR) == S_IXUSR){
+				free(buf);
+				free(tmpPath);
+				return 1;
+			}else{
+
+
+				strcpy(tmpPath, "/usr/bin/");
+				strcat(tmpPath, path);
+				stat(tmpPath, buf);
+
+				if((buf->st_mode & S_IXUSR) == S_IXUSR){
+
+					free(buf);
+					free(tmpPath);
+					return 1;
+				}
+			}
 		}
+		free(buf);
+		free(tmpPath);
 	}
+
 	return 0;
 }

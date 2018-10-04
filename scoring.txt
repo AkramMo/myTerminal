@@ -1,7 +1,6 @@
-1c1,4
-< /home/akmo/Eclipse-workspace/myterminal
----
-> /tmp/ajou
-> a
-> b
-> c
+1,3d0
+< a
+< b
+< c
+8d4
+< /tmp/ajou

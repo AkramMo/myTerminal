@@ -16,6 +16,7 @@
 #include "utils.h"
 #include "fs.h"
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
@@ -46,23 +47,35 @@ int main()
 			if (ret != 0) {
 				comm_entry->err(ret);
 			}
+			free(comm_entry);
 		} else if (does_exefile_exists(argv[0])) {
+			//
+			//			/tmp/ajou
+			//			a
+			//			b
+			//			c
 
-			if(system(argv[0]) == -1 ){
+			pid_t pid;
+			int state;
+			pid = fork();
 
-				pid_t pid;
-				pid = fork();
+			if(pid < 0){
+				printf("can't fork, error occured\n");
 
-				if(pid == -1){
-					printf("can't fork, error occured\n");
+			}else if( pid == 0){
 
-				}else if( pid == 0){
-
-					execv(argv[0], argv);
+				if(execvp(argv[0], argv) == -1){
 					perror("execv");
-					return 2;
 				}
+			}else {
+
+				do {
+
+					waitpid(pid, &state, WUNTRACED);
+
+				} while (!WIFSIGNALED(state) && !WIFEXITED(state));
 			}
+
 
 
 		} else {
