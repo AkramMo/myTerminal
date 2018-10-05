@@ -31,6 +31,7 @@ void parse_command(const char* input,
 
 	argv[0] = malloc(BUFSIZE * sizeof(char ** ));
 
+
 	while(*input != '\0'){
 
 		while(*input != '\0' ){

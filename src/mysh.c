@@ -63,6 +63,8 @@ int main()
 				if(execvp(argv[0], argv) == -1){
 					perror("execv");
 				}
+
+				exit(EXIT_FAILURE);
 			}else {
 
 				do {
