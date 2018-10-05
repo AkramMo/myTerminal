@@ -1,5 +1,4 @@
-5,8d4
-< a
-< b
-< c
+0a1
+> /tmp/ajou
+4d4
 < /tmp/ajou
